@@ -59,12 +59,12 @@ print header;
 my %config = do "/secret/rhn.config";
 
 if($add=~/\w+/){
+	$ssh->system("rhn-channel -a --user=$config{'rhn_user'} --password=$config{'rhn_pass'} --channel=$add") or die "problem: ".$ssh->error;
 	print "adding $add<br>";
-	$ssh->system("rhn-channel -a --user=$config{'rhn_user'} --password=$config{'rhn_pass'} --channel=$add") or die $ssh->error;
 
 }elsif($remove=~/\w+/){
+	$ssh->system("rhn-channel -r --user=$config{'rhn_user'} --password=$config{'rhn_pass'} --channel=$remove") or die "problem: ".$ssh->error;
 	print "removing $remove<br>";
-	$ssh->system("rhn-channel -r --user=$config{'rhn_user'} --password=$config{'rhn_pass'} --channel=$remove") or die $ssh->error;
 
 }else{
 	print "nothing to do!<br>";
