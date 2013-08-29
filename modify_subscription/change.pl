@@ -8,6 +8,8 @@ use Net::OpenSSH;
 
 my $hostname=param('hostname');
 my $password=param('password');
+my $add=param('add');
+my $remove=param('remove');
 
 #check if host is pingable before proceeding
 my $pingable=0;
@@ -52,32 +54,19 @@ if($ssh->error){
 	exit;
 }
 
+print header;
+
 my %config = do "/secret/rhn.config";
 
-print header;
-print "<h3>Current channels</h3><p>";
-my $current=$ssh->capture("rhn-channel -l");
-$ssh->error and die $ssh->error;
-$current=~s/\s/<br>/g;
-print $current;
-print "<hr>";
-print "<h3>Available channels</h3>";
-my $available=$ssh->capture("rhn-channel -L --user=$config{'rhn_user'} --password=$config{'rhn_pass'} ");
-$ssh->error and die $ssh->error;
-$available=~s/\s/<br>/g;
-print $available;
-print "<hr>";
-print "You may ADD from the list of Available channels or REMOVE from the list of Current channels (just copy/paste from above)<br>";
-print <<FORM;
-<form action="/cgi-bin/autorhn/modify_subscription/change.pl" method="POST">
-<table>
-<input type="hidden" name="hostname" value="$hostname">
-<input type="hidden" name="password" value="$password">
-<tr><td>Add channel</td><td><input type="text" name="add"></td></tr>
-<tr><td>Remove channel</td><td><input type="text" name="remove"></td></tr>
-</table>
-<input type="submit">
-</form>
-</body>
-FORM
+if($add=~/\w+/){
+	print "adding $add<br>";
+	$ssh->system("rhn-channel -a --user=$config{'rhn_user'} --password=$config{'rhn_pass'} --channel=$add") or die $ssh->error;
 
+}elsif($remove=~/\w+/){
+	print "removing $remove<br>";
+	$ssh->system("rhn-channel -r --user=$config{'rhn_user'} --password=$config{'rhn_pass'} --channel=$remove") or die $ssh->error;
+
+}else{
+	print "nothing to do!<br>";
+}
+print "<a href='/cgi-bin/autorhn/modify_subscription/list.pl?&hostname=$hostname&password=$password'>View Channels</a>";
