@@ -1,39 +1,56 @@
 autorhn
 =======
 
-let users register their own machines to rhn
+let users register their own machines to rhn and modify their channel subscriptions afterwards
 
 
 
-Login page looks like this:
+Login page
+----------
 
 
-Register internal devel/testing systems to RHN here
-PLEASE BE PATIENT (dont hit refresh), it takes a few minutes to register!!
+### Register internal devel/testing systems to RHN here
+#### PLEASE BE PATIENT (dont hit refresh), it takes a few minutes to register!!
 
-hostname:	
-root username:  root
-root password:	
+**hostname**:
+
+**root username**: root
+
+**root password**:	
+
 [Submit]
 
 
-Once registered, you can modify your channel subscription like this:
+
+Once registered, you can modify your channel subscription
+---------------------------------------------------------
 
 (after logging in)
 
-Current channels
+#### Current channels
 
 rhel-x86_64-server-6
-------------------------------------------------------------------------
-Available channels
+
+=======================================================================
+
+#### Available channels
 
 rhel-x86_64-server-optional-6
+
 rhel-x86_64-server-optional-6-beta
+
 rhel-x86_64-server-optional-6-beta-debuginfo
+
 rhel-x86_64-server-optional-6-debuginfo
+
 ....
-------------------------------------------------------------------------
+
+=======================================================================
+
 You may ADD from the list of Available channels or REMOVE from the list of Current channels (just copy/paste from above)
-Add Channel    ____________________________
-Remove Channel ____________________________
+
+Add Channel    [textbox]
+
+Remove Channel [textbox]
+
 [Submit]
